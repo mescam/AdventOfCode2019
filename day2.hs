@@ -4,6 +4,7 @@ split (c:cs) | c == ','  = "" : rest
              | otherwise = (c : head rest) : tail rest
     where rest = split cs
 
+merge :: [Int] -> [Int] -> [Int]
 merge [] ys = ys
 merge (x:xs) ys = x:merge xs ys
 

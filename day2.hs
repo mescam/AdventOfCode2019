@@ -1,4 +1,3 @@
-
 split :: String -> [String]
 split [] = [""]
 split (c:cs) | c == ','  = "" : rest

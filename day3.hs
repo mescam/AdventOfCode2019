@@ -26,12 +26,8 @@ points ((op,len):xs) acc
     | op == "D" = points xs (addPoints (0, 0, len, 0) acc)
     | op == "R" = points xs (addPoints (0, 0, 0, len) acc)
 
-elemInList :: (Int, Int) -> [(Int, Int)] -> Bool
-elemInList x [] = False
-elemInList x ys = (length $ filter (\y -> y == x) ys) > 0
-
 intersect [] _ acc = acc
-intersect (x:xs) ys acc | elemInList x ys = intersect xs ys (x:acc)
+intersect (x:xs) ys acc | elem x ys       = intersect xs ys (x:acc)
                         | otherwise       = intersect xs ys acc
 
 distance (x, y) = (abs x) + (abs y)
@@ -46,5 +42,6 @@ main = do
     let pv1 = points v1 [(0, 0)]
     let pv2 = points v2 [(0, 0)]
 
+
     print $ minimum (map (\(x, _) -> x) (filter (\(x, _) -> x /= 0) (map (\x -> (distance x, x)) (intersect pv1 pv2 []))))
--- Possible optimization: generate distances for each point of 2 vectors, sort, find first common element - that's the answer
+    -- Possible optimization: generate distances for each point of 2 vectors, sort, find first common element - that's the answer

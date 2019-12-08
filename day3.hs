@@ -32,6 +32,15 @@ intersect (x:xs) ys acc | elem x ys       = intersect xs ys (x:acc)
 
 distance (x, y) = (abs x) + (abs y)
 
+findValueIndex x (y:ys) acc | y==x      = acc
+                            | otherwise = findValueIndex x ys (acc+1)
+
+steps :: (Int, Int) -> [(Int, Int)] -> [(Int, Int)] -> Int
+steps p w1 w2 = let
+    stepsW1 = findValueIndex p w1 0
+    stepsW2 = findValueIndex p w2 0
+    in stepsW1 + stepsW2
+
 main :: IO()
 main = do
     content <- readFile "day3_input.txt"
@@ -42,6 +51,11 @@ main = do
     let pv1 = points v1 [(0, 0)]
     let pv2 = points v2 [(0, 0)]
 
-
+    -- Part 1
     print $ minimum (map (\(x, _) -> x) (filter (\(x, _) -> x /= 0) (map (\x -> (distance x, x)) (intersect pv1 pv2 []))))
+
+    -- Part 2
+    let rpv1 = reverse pv1
+    let rpv2 = reverse pv2
+    print $ minimum (map (\p -> steps p rpv1 rpv2 ) (filter (\x -> x /= (0, 0)) (intersect pv1 pv2 [])))
     -- Possible optimization: generate distances for each point of 2 vectors, sort, find first common element - that's the answer

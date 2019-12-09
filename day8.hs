@@ -13,9 +13,9 @@ countOccurrences (x:xs) (zeros, ones, twos)
 minimumBy2 :: (a -> a -> Bool) -> [a] -> a
 minimumBy2 _ (x:[]) = x
 minimumBy2 func (x:xs) | func x min = min
-                      | otherwise  = x
-                      where
-                        min = minimumBy2 func xs
+                       | otherwise  = x
+                       where
+                         min = minimumBy2 func xs
 
 findPixel xs = head $ dropWhile (==2) xs
 

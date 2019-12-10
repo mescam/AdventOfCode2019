@@ -7,14 +7,6 @@ parse str = let
     after = drop ((length before)+1) str
     in (before, after)
 
--- stepsFrom :: String -> String -> [(String, String)] -> Maybe Int
--- stepsFrom a b [] = Nothing
--- stepsFrom a b ((x,y):xs) | a/=x && b/=y = Nothing
---                          | a==x && b==y = Just 1
---                          | a==x && b/=y = case stepsFrom y b xs of
---                             Nothing -> Nothing
---                             Just x -> Just (x + 1)
-
 swap (a, b) = (b, a)
 
 all2 [] = []
